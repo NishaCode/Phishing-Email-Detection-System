@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Phishing Email Detection System Dashboard">
+    <title>Phishing AI | Threat Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bx-shield-quarter'></i>
+                <span>PhishGuard AI</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class='bx bx-grid-alt'></i> <span>Dashboard</span></a></li>
+                <li><a href="#"><i class='bx bx-radar'></i> <span>Live Scans</span></a></li>
+                <li><a href="#"><i class='bx bx-data'></i> <span>Threat Intel</span></a></li>
+                <li><a href="#"><i class='bx bx-cog'></i> <span>Settings</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">SA</div>
+                    <div class="user-details">
+                        <span class="name">SOC Admin</span>
+                        <span class="role">System Operator</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search logs, hashes, or IP addresses...">
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn"><i class='bx bx-bell'></i><span class="badge">3</span></button>
+                    <button class="btn-primary" id="btn-new-scan"><i class='bx bx-plus'></i> New Analysis</button>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="page-header">
+                    <h1>Threat Analysis Engine</h1>
+                    <p>Detect and classify phishing attempts using NLP and Machine Learning.</p>
+                </div>
+
+                <div class="grid-layout">
+                    <!-- Input Section -->
+                    <section class="card input-section">
+                        <div class="card-header">
+                            <h2><i class='bx bx-envelope'></i> Email Data Input</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="analysis-form">
+                                <div class="form-group">
+                                    <label for="email-headers">Raw Headers (Optional)</label>
+                                    <textarea id="email-headers" rows="4" placeholder="Paste email headers (Received, SPF, DKIM, etc.)"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-content">Email Body Content *</label>
+                                    <textarea id="email-content" rows="6" placeholder="Paste the suspicious email content here..." required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-urls">Extracted URLs</label>
+                                    <input type="text" id="email-urls" placeholder="e.g., http://suspicious-login.com">
+                                </div>
+                                <div class="form-group file-upload-group">
+                                    <label>Attachments</label>
+                                    <div class="file-upload">
+                                        <i class='bx bx-cloud-upload'></i>
+                                        <span>Drag & drop files or <u>browse</u></span>
+                                        <input type="file" id="email-attachments" multiple>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary full-width" id="btn-analyze">
+                                    <i class='bx bx-scan'></i> Run AI Analysis
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- Results Section -->
+                    <section class="card results-section" id="results-panel">
+                        <div class="card-header">
+                            <h2><i class='bx bx-line-chart'></i> Analysis Results</h2>
+                            <span class="status-badge pending" id="overall-status">Awaiting Input</span>
+                        </div>
+                        <div class="card-body result-body">
+                            
+                            <!-- Initial Empty State -->
+                            <div class="empty-state" id="empty-state">
+                                <i class='bx bx-ghost'></i>
+                                <p>Provide email data and run analysis to see results.</p>
+                            </div>
+
+                            <!-- Loading State -->
+                            <div class="loading-state hidden" id="loading-state">
+                                <div class="scanner-bar"></div>
+                                <p>Analyzing vectors through machine learning models...</p>
+                                <ul class="loading-steps">
+                                    <li id="step-nlp" class="step"><i class='bx bx-loader-alt bx-spin'></i> Natural Language Processing</li>
+                                    <li id="step-header" class="step"><i class='bx bx-loader-alt bx-spin'></i> Header Authentication</li>
+                                    <li id="step-url" class="step"><i class='bx bx-loader-alt bx-spin'></i> URL Reputation Check</li>
+                                    <li id="step-file" class="step"><i class='bx bx-loader-alt bx-spin'></i> Attachment Scanning</li>
+                                </ul>
+                            </div>
+
+                            <!-- Actual Results -->
+                            <div class="analysis-results hidden" id="analysis-results">
+                                <!-- Score Gauge -->
+                                <div class="score-container">
+                                    <div class="circular-chart" id="score-chart">
+                                        <svg viewBox="0 0 36 36" class="circular-chart-svg">
+                                            <path class="circle-bg"
+                                                d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <path class="circle" id="score-circle"
+                                                stroke-dasharray="0, 100"
+                                                d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                                        </svg>
+                                    </div>
+                                    <div class="score-label">Phishing Probability</div>
+                                </div>
+
+                                <!-- Detail Modules -->
+                                <div class="modules-grid">
+                                    <div class="module-card" id="mod-nlp">
+                                        <div class="mod-icon"><i class='bx bx-text'></i></div>
+                                        <div class="mod-info">
+                                            <h3>NLP Content</h3>
+                                            <p id="res-nlp">Analyzing...</p>
+                                        </div>
+                                    </div>
+                                    <div class="module-card" id="mod-header">
+                                        <div class="mod-icon"><i class='bx bx-code-block'></i></div>
+                                        <div class="mod-info">
+                                            <h3>Header Auth</h3>
+                                            <p id="res-header">Analyzing...</p>
+                                        </div>
+                                    </div>
+                                    <div class="module-card" id="mod-url">
+                                        <div class="mod-icon"><i class='bx bx-link-external'></i></div>
+                                        <div class="mod-info">
+                                            <h3>URL Reputation</h3>
+                                            <p id="res-url">Analyzing...</p>
+                                        </div>
+                                    </div>
+                                    <div class="module-card" id="mod-file">
+                                        <div class="mod-icon"><i class='bx bx-file'></i></div>
+                                        <div class="mod-info">
+                                            <h3>Attachment</h3>
+                                            <p id="res-file">Analyzing...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <button class="btn-outline"><i class='bx bx-download'></i> Export Report</button>
+                                    <button class="btn-danger"><i class='bx bx-block'></i> Block Sender</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
