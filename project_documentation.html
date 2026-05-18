@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Project Documentation - Phishing Email Detection System">
+    <title>Phishing AI | Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .doc-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .doc-section {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .doc-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+        .doc-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .doc-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .doc-section li {
+            margin-bottom: 0.5rem;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            height: 350px;
+        }
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bx-shield-quarter'></i>
+                <span>PhishGuard AI</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class='bx bx-grid-alt'></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="#"><i class='bx bx-book-content'></i> <span>Documentation</span></a></li>
+                <li><a href="#"><i class='bx bx-data'></i> <span>Threat Intel</span></a></li>
+                <li><a href="#"><i class='bx bx-cog'></i> <span>Settings</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">SA</div>
+                    <div class="user-details">
+                        <span class="name">SOC Admin</span>
+                        <span class="role">System Operator</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search documentation...">
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn"><i class='bx bx-bell'></i><span class="badge">3</span></button>
+                    <button class="btn-primary"><i class='bx bx-download'></i> Download PDF</button>
+                </div>
+            </header>
+
+            <div class="doc-content">
+                <div class="page-header">
+                    <h1>Project Overview & Architecture</h1>
+                    <p>Detailed explanation of the Phishing Email Detection System capabilities and algorithms.</p>
+                </div>
+
+                <div class="doc-section">
+                    <h2><i class='bx bx-target-lock'></i> Project Objective</h2>
+                    <p>The Phishing Email Detection System is a robust architecture designed to automatically identify and classify malicious emails. This platform mitigates the risk of advanced persistent threats, spear-phishing campaigns, and credential harvesting attacks by relying on machine learning instead of static blacklists.</p>
+                    <p>It operates across four main pillars of detection:</p>
+                    <ul>
+                        <li><strong>NLP-based Content Analysis:</strong> Utilizing Natural Language Processing to detect urgency, financial requests, and deceptive linguistic patterns.</li>
+                        <li><strong>Email Header Inspection:</strong> Authenticating the origin via SPF, DKIM, and DMARC validations while checking for anomalies in relay paths.</li>
+                        <li><strong>URL Reputation Checking:</strong> Cross-referencing embedded links with real-time threat intelligence databases and evaluating domain age and SSL certificate validity.</li>
+                        <li><strong>Attachment Scanning:</strong> Analyzing files for malicious payloads, macros, and known malware signatures.</li>
+                    </ul>
+                </div>
+
+                <div class="doc-section">
+                    <h2><i class='bx bx-bar-chart-alt-2'></i> System Performance Metrics</h2>
+                    <p>The following charts represent the model's accuracy, training metrics, and the historical distribution of analyzed emails over the past 30 days.</p>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <canvas id="accuracyChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="threatDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="charts-grid" style="margin-top: 2rem;">
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="scanVolumeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doc-section">
+                    <h2><i class='bx bx-server'></i> Architecture Overview</h2>
+                    <p>The system is built as a highly modular pipeline, ensuring that every layer can be scaled independently. When an email is received, it is broken down into structured features which are fed into a consolidated Random Forest classifier that yields a final <strong>Phishing Probability Score</strong>.</p>
+                    <p>Future iterations will include an integrated browser extension, allowing enterprise end-users to invoke scanning seamlessly without leaving their webmail interfaces.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart Defaults for Dark Theme
+            Chart.defaults.color = '#a1a1aa';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            
+            const gridOptions = {
+                color: 'rgba(255, 255, 255, 0.05)',
+                borderColor: 'rgba(255, 255, 255, 0.05)'
+            };
+
+            // 1. Accuracy & Loss Chart (Line)
+            const ctxAccuracy = document.getElementById('accuracyChart').getContext('2d');
+            new Chart(ctxAccuracy, {
+                type: 'line',
+                data: {
+                    labels: ['Epoch 1', 'Epoch 2', 'Epoch 3', 'Epoch 4', 'Epoch 5', 'Epoch 6', 'Epoch 7', 'Epoch 8'],
+                    datasets: [{
+                        label: 'Model Accuracy (%)',
+                        data: [78, 85, 89, 92, 94, 96, 96.5, 97.2],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'ML Model Training Accuracy',
+                            color: '#f4f4f5',
+                            font: { size: 16, family: "'Space Grotesk', sans-serif" }
+                        }
+                    },
+                    scales: {
+                        y: { grid: gridOptions, min: 60, max: 100 },
+                        x: { grid: gridOptions }
+                    }
+                }
+            });
+
+            // 2. Threat Distribution Chart (Doughnut)
+            const ctxDistribution = document.getElementById('threatDistributionChart').getContext('2d');
+            new Chart(ctxDistribution, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Safe/Clean', 'Credential Harvesting', 'Malware Attachment', 'Extortion/Scam'],
+                    datasets: [{
+                        data: [65, 20, 10, 5],
+                        backgroundColor: [
+                            '#10b981', // Success
+                            '#f59e0b', // Warning
+                            '#ef4444', // Danger
+                            '#8b5cf6'  // Purple
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' },
+                        title: {
+                            display: true,
+                            text: 'Email Classification Distribution',
+                            color: '#f4f4f5',
+                            font: { size: 16, family: "'Space Grotesk', sans-serif" }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // 3. Scan Volume Chart (Bar)
+            const ctxVolume = document.getElementById('scanVolumeChart').getContext('2d');
+            new Chart(ctxVolume, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Total Scans',
+                            data: [1200, 1900, 1500, 2200, 1800, 800, 600],
+                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Threats Blocked',
+                            data: [45, 80, 65, 110, 90, 20, 15],
+                            backgroundColor: '#ef4444',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Weekly Scan Volume vs Threats Blocked',
+                            color: '#f4f4f5',
+                            font: { size: 16, family: "'Space Grotesk', sans-serif" }
+                        }
+                    },
+                    scales: {
+                        y: { grid: gridOptions, beginAtZero: true },
+                        x: { grid: gridOptions }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
